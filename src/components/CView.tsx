@@ -85,10 +85,10 @@ const CView = React.forwardRef<View, CViewProps>(
     }
     //margin
     function resolveMargin() {
-      if (padding === "padS") return padS;
-      if (padding === "padM") return padM;
-      if (padding === "padL") return padL;
-      if (padding === "padXL") return padXL;
+      if (margin === "padS") return padS;
+      if (margin === "padM") return padM;
+      if (margin === "padL") return padL;
+      if (margin === "padXL") return padXL;
       return padXXL;
     }
     function resolveAbsPos() {

@@ -11,28 +11,32 @@ import {
   padS,
   screenHeight,
   screenWidth,
+  transparent,
 } from "./src/style/constants";
+import CScrollView from "./src/components/CScrollVIew";
 
 interface ShoppingItem {
   text: string;
   id: number;
 }
 
-export default function App() {
+ßexport default function App() {
   const [shoppingList, setShoppingList] = useState<ShoppingItem[]>([
     { id: 0, text: "Salad" },
     { id: 1, text: "Corn" },
     { id: 2, text: "Apple" },
   ]);
-  const newItem = useState({ text: "Carrot", id: 3 });
+  const [newItemText, setNewItemText] = useState("");
   const handleRemoveItem = (id: number) => {
     let newList = [...shoppingList].filter((item) => id !== item.id);
     setShoppingList(newList);
   };
   const handleAddItem = (text: string, id: number) => {
-    //[...shoppingList].unshift({ text, id }) to return number ?!??!?
-    // let newList: ShoppingItem[] = [...shoppingList].unshift({ text, id });
-    // setShoppingList(newList);
+    // [...shoppingList].unshift({ text, id }) returna BROJ ?!??!?
+    if (text === "") return;
+    let newList: ShoppingItem[] = [...shoppingList, { text, id }];
+    setNewItemText("");
+    setShoppingList(newList);
   };
   return (
     <CView
@@ -48,38 +52,58 @@ export default function App() {
         bold
         fontSize="fsizeXXL"
       />
-      {/* <CTextInput value={value} onChangeText={setValue} /> */}
-      {shoppingList.map((item) => {
-        return (
-          <CView
-            key={item.id}
-            width={0.8 * screenWidth}
-            height={50}
-            backgroundColor={fontColorLight}
-            //margin ne utjece na padding, ali padding utjece na margin
-            padding="padM"
-            margin="padS"
-            spaceBetween
-          >
-            <CText text={item.text} bold textColor={fontColorDark} />
-            <CButton
-              colorTheme="danger"
-              title="X"
-              hPadding="padS"
-              centerText
-              onPress={() => handleRemoveItem(item.id)}
-            />
-          </CView>
-        );
-      })}
-      <CButton
-        colorTheme="success"
-        padding="padXXL"
-        title="Add Item"
-        // onPress={handleAddItem}
-        //aaa props
-        // onPressPayload={{newItem[0].text, newItem[0].id}}
-      />
+      <CView
+        width={0.75 * screenWidth}
+        height={50}
+        backgroundColor={transparent}
+        margin={"padL"}
+      >
+        <CTextInput
+          value={newItemText}
+          onChangeText={setNewItemText}
+          style={{
+            backgroundColor: "whitesmoke",
+            borderRadius: 10,
+            width: "80%",
+            height: 50,
+          }}
+        />
+        <CButton
+          //no alignment option lol
+          colorTheme="success"
+          height={"100%"}
+          padding="padL"
+          // margin="padS"
+          title="Add Item"
+          onPress={() => handleAddItem(newItemText, shoppingList.length)}
+          //aaa props?
+          // onPressPayload={{newItem[0].text, newItem[0].id}}
+        />
+      </CView>
+      <CScrollView height={250} width={"100%"}>
+        {shoppingList.map((item) => {
+          return (
+            <CView
+              key={item.id}
+              width={0.8 * screenWidth}
+              height={50}
+              backgroundColor={fontColorLight}
+              padding="padM"
+              margin="padM"
+              spaceBetween
+            >
+              <CText text={item.text} bold textColor={fontColorDark} />
+              <CButton
+                colorTheme="danger"
+                title="X"
+                hPadding="padS"
+                centerText
+                onPress={() => handleRemoveItem(item.id)}
+              />
+            </CView>
+          );
+        })}
+      </CScrollView>
     </CView>
   );
 }

@@ -19,6 +19,8 @@ export const backgroundColorDark = "#0A2463";
 export const dangerColor = "#D8315B";
 export const successColor = "#3E92CC";
 
+export const transparent = "rgba(255,255,255,0)";
+
 //padding vrijedi i za margine
 //P object ali nerabi
 export const padS = 4;
