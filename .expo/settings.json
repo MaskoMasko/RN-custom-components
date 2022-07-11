@@ -3,7 +3,11 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
+<<<<<<< HEAD
   "urlRandomness": null,
+=======
+  "urlRandomness": "g6-vjk",
+>>>>>>> 31db2825d53a532367ace3fcf47d7da78808ad31
   "https": false,
   "scheme": null,
   "devClient": false
